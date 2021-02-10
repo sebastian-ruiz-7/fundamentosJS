@@ -1,47 +1,42 @@
 var sebastian = {
     nombre:'Sebastián',
     apellido:'Ruiz',
-    altura:'1.7'
+    altura:1.7
 };
 
 var aldo = {
     nombre:'Aldo',
     apellido:'Ruiz',
-    altura:'1.65'
+    altura:1.65
 };
 
 var irma = {
     nombre:'Irma',
     apellido:'Álvarez',
-    altura:'1.6'
+    altura:1.6
 };
 
 var mario = {
     nombre:'Mario',
     apellido:'Ruiz',
-    altura:'1.7'
+    altura:1.7
 };
 
 var sunem = {
     nombre:'Sunem',
     apellido:'Sánchez',
-    altura:'1.55'
+    altura:1.55
 };
 
 var oswaldo = {
     nombre:'Oswaldo',
     apellido:'Silva',
-    altura:'1.81'
+    altura:1.81
 };
 
 var personas=[sebastian,aldo,irma,mario,sunem,oswaldo];
 
 
-// for(var i in personas){
-//     console.log(personas[i].nombre + ' mide ' + personas[i].altura+ ' m.');
-// }
-
-//Para esta clase vamos a filtrar a las personas altas
 
 var personasAltas=[];
 
@@ -65,8 +60,17 @@ for(var i in personas){
 console.log('Personas Bajas');
 console.log(personasBajas);
 
-//Aunque también se puede hacer como dice en la clase de la siguiente forma, solo que me pareció más adecuado mi método XD
+//Para esta clase, se va a transformar la altura de las personas de m a cm
+//Pero creando un nuevo array, para que el original no se vea modificado
 
-// const esAlta = ({altura}) => altura > 1.8
+const pasarAlturaACms = persona => {
+    return {
+        ...persona,
+    altura: persona.altura*100
+    }
+}
 
-// var personasAltas = personas.filter(esAlta)
+var personaCms= personas.map(pasarAlturaACms)
+console.log('Altura en cm');
+console.log(personaCms);
+
