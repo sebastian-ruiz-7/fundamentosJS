@@ -9,21 +9,30 @@ const PEOPLE_URL='people/:id';
 const opts= {crossDomain:true};
 
 
-//Para esta clase se van a hacer múltiples request en paralelo, eso se hace de la siguiente manera.
 
-function getCharacter(id){
+//This clase will study the correct way to get the character if we want to keep the order in they was called.
+//To do that, it's necessary pass a second parameter to the function getCharacter
+function getCharacter(id,callback){
     //This is the URL of the caracter. The id defines the specific caracther by number. For example id=1 (Luke SkyWalker), id=2 (C-3PO), etc.
     const Character_URL=API_URL+PEOPLE_URL.replace(':id',id);
 
     $.get(Character_URL,opts,function(character){
        console.log('Hola, yo soy ' + character.name);
     })
+
+    if(callback){
+        callback();
+    }
 }
 
 
-//El problema con esto es que, debido al asíncronismo de JS, es imposible saber el orden en que se imprimirán en consola. Es decir, prácticamente 
-//será aleatorio. En la siguiente clase se verá un método para que los personajes se impriman en la consola en el mismo orden como fueron llamados.
-getCharacter(1) //Luke
-getCharacter(2) //C-3PO
-getCharacter(3) //R2-D2
+//This practice brings up a problem called hell. It's mean that the code start to see horizontal and it's dificult to read. 
+//The next class will study how to solve problems with request. Like what happen when you run out of internet in the middle of a request.
 
+getCharacter(1, function() {
+    getCharacter(2, function() {
+        getCharacter(3, function() {
+            getCharacter(4)
+        })
+    })
+})
