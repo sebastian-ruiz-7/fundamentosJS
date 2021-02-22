@@ -16,23 +16,23 @@ function getCharacter(id,callback){
     //This is the URL of the caracter. The id defines the specific caracther by number. For example id=1 (Luke SkyWalker), id=2 (C-3PO), etc.
     const Character_URL=API_URL+PEOPLE_URL.replace(':id',id);
 
-    $.get(Character_URL,opts,function(character){
-       console.log('Hola, yo soy ' + character.name);
-    })
-
-    if(callback){
-        callback();
-    }
+    $
+    .get(Character_URL,opts,callback)
+    //This is the way that we can let know the user that something went wrong and it's necessary refresh the page
+    .fail(()=>console.log('Sucedió un error. No se pudo obtener el personaje' + id))
 }
 
 
-//This practice brings up a problem called hell. It's mean that the code start to see horizontal and it's dificult to read. 
-//The next class will study how to solve problems with request. Like what happen when you run out of internet in the middle of a request.
 
-getCharacter(1, function() {
-    getCharacter(2, function() {
-        getCharacter(3, function() {
-            getCharacter(4)
+getCharacter(1, function(character) {
+    console.log('Hola, yo soy ' + character.name);
+    getCharacter(2, function(character) {
+       console.log('Hola, yo soy ' + character.name);
+        getCharacter(3, function(character) {
+            console.log('Hola, yo soy ' + character.name);
+            getCharacter(4,function(character){
+               console.log('Hola, yo soy ' + character.name);
+            })
         })
     })
 })
