@@ -10,7 +10,7 @@ const opts= {crossDomain:true};
 
 
 
-//This class will study the concept of promise. A way to explain promise is think of then as if they are values that we don't know right now, but 
+//This class will study the way to make multiple promises. A way to explain promise is think of then as if they are values that we don't know right now, but 
 //eventually when the request will be completed we know the value.
 
 //The promise have 3 state. Pending (not resolved yet). Fullfilled (succed). Rejected (fail or reject).
@@ -35,7 +35,21 @@ function onError(id){
     console.log('Sucedión un error al obtener el personaje '+id);
 }
 
+//This is the way to make multiples promises.
+//It is important to say that this is the way to make series request
 getCharacter(1)
-    .then((character)=>console.log('Hola, yo soy '+character.name))
+    .then(character=>{console.log('El personaje 1 es '+character.name)
+    return getCharacter(2)})
+        .then(character=>{console.log('El personaje 2 es '+character.name)
+        return getCharacter(3)})
+            .then(character=>{console.log('El personaje 3 es '+character.name)
+            return getCharacter(4)})
+                .then(character=>{console.log('El personaje 4 es '+character.name)
+                return getCharacter(5)})
+                    .then(character=>{console.log('El personaje 5 es '+character.name)
+                    return(getCharacter(6))})
+                        .then(character=>{console.log('El personaje 6 es '+character.name)
+                        return getCharacter(7)})
+                            .then(character=>console.log('El personaje 7 es '+character.name))
     .catch(onError)
 
