@@ -10,7 +10,7 @@ const opts= {crossDomain:true};
 
 
 
-//This class will study the way to make multiple paralel promises.
+//This class will study how to use asyn-await to get characters
 
 function getCharacter(id){
     return new Promise((resolve,reject)=>{
@@ -26,14 +26,21 @@ function getCharacter(id){
 function onError(id){
     console.log('Sucedión un error al obtener el personaje '+id);
 }
+//We need to put async before funtion to say JS that this function is asyncronos
+async function getCharacters(){
+    //this is the way to make multiples parallel promises but keeping the order in they were called
+    var ids = [1,2,3,4,5,6,7];
 
-//this is the way to make multiples parallel promises but keeping the order in they were called
-var ids = [1,2,3,4,5,6,7];
+    var promises=ids.map(id=>getCharacter(id));
 
-var promises=ids.map(id=>getCharacter(id));
+    //All the asyncronos part has to be inside of the next block of code
+    try{
+        var characters= await Promise.all(promises); //This line will execute when all the promises will resolved
+        console.log(characters)
+    }catch(id){
+        onError(id)
+    }
+}
 
-//This return a arrays full of objects whit the info of the characther at the same time
-Promise
-    .all(promises)
-    .then(characther=>console.log(characther))
-    .catch(onError)
+
+getCharacters();
